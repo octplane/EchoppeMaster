@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    bson (1.7.0)
     chunky_png (1.2.8)
     compass (0.12.2)
       chunky_png (~> 1.2)
@@ -8,10 +9,13 @@ GEM
       sass (~> 3.1)
     fssm (0.2.10)
     kgio (2.7.4)
+    mongo (1.7.0)
+      bson (~> 1.7.0)
     rack (1.5.2)
     rack-protection (1.5.0)
       rack
     raindrops (0.10.0)
+    rufus-mnemo (1.2.3)
     sass (3.2.7)
     shotgun (0.9)
       rack (>= 1.0)
@@ -30,6 +34,8 @@ PLATFORMS
 
 DEPENDENCIES
   compass
+  mongo
+  rufus-mnemo
   sass
   shotgun
   sinatra

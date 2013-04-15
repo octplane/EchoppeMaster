@@ -5,3 +5,6 @@ gem 'sinatra'
 gem 'shotgun'
 gem 'sass'
 gem 'compass'
+gem 'mongo'
+
+gem 'rufus-mnemo', require: 'rufus/mnemo'
