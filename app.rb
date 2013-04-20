@@ -80,11 +80,29 @@ post '/create' do
 end
 
 get '/v/:id' do
-  id = Rufus::Mnemo.from_s(params[:id])
+  begin
+    id = Rufus::Mnemo.from_s(params[:id])
+    doc = fetch_doc(id)
+    if doc != nil
+      @current_url = params[:id]
+      @title = "Shopping list #{@current_url}"
+      @items = doc['items']
 
-  raise fetch_doc(id).inspect
-
-
+      erb :shop
+    else
+      redirect "/404"
+    end
+  rescue Exception=>e
+    $stderr.puts e.inspect
+    redirect '/500'
+  end
 end
 
+get '/404' do
+  halt 404
+end
+
+get '/500' do
+  halt 404
+end
 

@@ -1,20 +1,12 @@
-  <h3>This is list <a href="/fulopita">fulopita</a>.</h3>
+  <h3>This is list <a href="/v/<%= @current_url%>"><%= @current_url %></a>.</h3>
+  <% @items.each_with_index do |item, index| %>
   <div class="row">
-    <div class="span3">
-    <div class="toggle toggle-icon">
-	<label class="toggle-radio fui-checkmark-16" for="item1"></label>
-	<input type="radio" name="item1" id="item1" value="on" checked="checked">
-	<label class="toggle-radio fui-cross-16" for="item1"></label>
-    </div></div>
-    <div class="span9">Saucisse de Cochon grillé bleu </div>
-  </div>
-  <div class="row">
-    <div class="span3">
+    <div class="span12">
       <div class="toggle toggle-icon">
-	<label class="toggle-radio fui-checkmark-16" for="item2"></label>
-	<input type="radio" name="item2" id="item2" value="on" checked="checked">
-	<label class="toggle-radio fui-cross-16" for="item2"></label>
-      </div>
+	     <label class="toggle-radio fui-checkmark-16" for="item<%= index %>"></label>
+	     <input type="radio" name="item<%= index %>" id="item<%= index %>" value="on" checked="checked">
+	     <label class="toggle-radio fui-cross-16" for="item<%= index %>"></label>
+      </div> <%= item %>
     </div>
-    <div class="span9">Lait (x3)</div>
   </div>
+  <% end %>
