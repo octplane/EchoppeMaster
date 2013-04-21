@@ -7,4 +7,4 @@ gem 'sass'
 gem 'compass'
 gem 'mongo'
 
-gem 'rufus-mnemo', require: 'rufus/mnemo'
+gem 'rufus-mnemo', :require => 'rufus/mnemo'

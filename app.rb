@@ -62,7 +62,7 @@ end
 
 post '/create' do
   slist = @params['slist'].gsub(/\r\n/,"\n")
-  items = slist.split(/\n/).map{ |l| l.strip}
+  items = slist.split(/\n/).map{ |l| l.strip}.reject! { |i| i == ""}
 
   # compute identifier
   me = (Time.now.to_s + items.join('')).hash % 10000000
