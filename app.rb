@@ -62,17 +62,27 @@ end
 
 post '/create' do
   slist = @params['slist'].gsub(/\r\n/,"\n")
-  items = slist.split(/\n/).map{ |l| l.strip}.reject! { |i| i == ""}
+  email = @params['email']
+
+
+  items = slist.split(/\n/).map{ |l| l.strip}
+  items.reject! { |i| i == ""}
 
   # compute identifier
   me = (Time.now.to_s + items.join('')).hash % 10000000
 
+  storable_items = {}
+
+  items.each_with_index do |i, ix|
+    storable_items["#{i}#{ix}".hash] = { :checked => false, :name => i, :updated => Time.now}
+  end
+
+
+  # concurency hell.
   while fetch_doc(me) != nil
     me += 1
   end
-
-  document = { '_id' => me, 'created_at' => Time.now, 'items' => items }
-
+  document = { '_id' => me, 'email' => email, 'created_at' => Time.now, 'items' => storable_items }
   save_doc(document)
 
 
@@ -80,7 +90,6 @@ post '/create' do
 end
 
 get '/v/:id' do
-  begin
     id = Rufus::Mnemo.from_s(params[:id])
     doc = fetch_doc(id)
     if doc != nil
@@ -88,14 +97,11 @@ get '/v/:id' do
       @title = "Shopping list #{@current_url}"
       @items = doc['items']
 
+
       erb :shop
     else
       redirect "/404"
     end
-  rescue Exception=>e
-    $stderr.puts e.inspect
-    redirect '/500'
-  end
 end
 
 get '/404' do
