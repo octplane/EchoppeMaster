@@ -1,6 +1,7 @@
 require 'rufus/mnemo'
 require 'mongo'
 require 'yaml'
+require 'json'
 
 
 
@@ -26,7 +27,14 @@ if ENV['VCAP_SERVICES']
     list_db.remove({'expire' => { '$lte' => Time.now.to_i}})
   end
 
+  get '/vcap' do
+    JSON.parse(ENV['VCAP_SERVICES'])
+  end
+
 else
+  get '/vcap' do
+    "pouet"
+  end
   require 'fileutils'
   DATA_FOLDER = File.join(File.dirname(__FILE__), 'data')
   if ! File.exists?(DATA_FOLDER)
