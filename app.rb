@@ -3,8 +3,6 @@ require 'mongo'
 require 'yaml'
 require 'json'
 
-
-
 if ENV['VCAP_SERVICES']
 
   def list_db
@@ -80,9 +78,12 @@ post '/create' do
   me = (Time.now.to_s + items.join('')).hash % 10000000
 
   storable_items = {}
+  keys = []
 
   items.each_with_index do |i, ix|
-    storable_items["#{i}#{ix}".hash] = { :checked => false, :name => i, :updated => Time.now}
+	id = "#{i}#{ix}".hash
+	keys << id
+    storable_items[id] = { :checked => false, :name => i, :updated => Time.now}
   end
 
 
@@ -90,7 +91,7 @@ post '/create' do
   while fetch_doc(me) != nil
     me += 1
   end
-  document = { '_id' => me, 'email' => email, 'created_at' => Time.now, 'items' => storable_items }
+  document = { '_id' => me, 'email' => email, 'created_at' => Time.now, 'keys' => keys, 'items' => storable_items }
   save_doc(document)
 
 
@@ -98,19 +99,51 @@ post '/create' do
 end
 
 get '/v/:id' do
+
+    id = Rufus::Mnemo.from_s(params[:id])
+    doc = fetch_doc(id)
+    if doc != nil
+      if !request.websocket?
+        @current_url = params[:id]
+        @title = "Shopping list #{@current_url}"
+        @items = doc['items']
+
+        erb :shop
+      else
+   request.websocket do |ws|
+      ws.onopen do
+        ws.send('c')
+        settings.sockets << ws
+      end
+      ws.onmessage do |msg|
+        EM.next_tick { settings.sockets.each{|s| s.send(msg) } }
+      end
+      ws.onclose do
+        warn("wetbsocket closed")
+        settings.sockets.delete(ws)
+      end
+
+      end
+      end
+    else
+      redirect "/404"
+    end
+end
+
+get '/api/1/:id' do
+
     id = Rufus::Mnemo.from_s(params[:id])
     doc = fetch_doc(id)
     if doc != nil
       @current_url = params[:id]
       @title = "Shopping list #{@current_url}"
       @items = doc['items']
-
-
-      erb :shop
-    else
-      redirect "/404"
+      return doc.to_json
     end
 end
+
+
+
 
 get '/404' do
   halt 404
@@ -119,4 +152,5 @@ end
 get '/500' do
   halt 404
 end
+
 

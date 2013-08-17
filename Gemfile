@@ -9,4 +9,6 @@ gem 'mongo'
 gem 'bson_ext'
 gem 'json'
 
+gem 'sinatra-websocket'
+
 gem 'rufus-mnemo', :require => 'rufus/mnemo'
