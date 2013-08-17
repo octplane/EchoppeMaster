@@ -81,8 +81,8 @@ post '/create' do
   keys = []
 
   items.each_with_index do |i, ix|
-	id = "#{i}#{ix}".hash
-	keys << id
+    id = "#{i}#{ix}".hash.to_s(36)
+    keys << id
     storable_items[id] = { :checked => false, :name => i, :updated => Time.now}
   end
 
