@@ -62,7 +62,7 @@ get '/em.css' do
 end
 
 get '/' do
-  @title = "Welcome to Gras-Shopper !"
+  @title = "Welcome to Share & Shop !"
   erb :index
 end
 

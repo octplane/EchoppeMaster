@@ -1,35 +1,40 @@
-  <script type="text/javascript">
-    window.onload = function(){
-      (function(){
-        var show = function(el){
-          return function(msg){ el.innerHTML = msg + '<br />' + el.innerHTML; }
-        }(document.getElementById('msgs'));
+<div class="page-header">
+  <h1>Alright, here is your list, <small>go out and shop now...</small></h1>
+</div>
 
-        var ws       = new WebSocket('ws://' + window.location.host + window.location.pathname);
-        ws.onopen    = function()  { show('websocket opened'); };
-        ws.onclose   = function()  { show('websocket closed'); }
-        ws.onmessage = function(m) { show('websocket message: ' +  m.data); };
+<script type="text/javascript">
+  window.onload = function(){
+    (function(){
+      var show = function(el){
+        return function(msg){ el.innerHTML = msg + '<br />' + el.innerHTML; }
+      }(document.getElementById('msgs'));
 
-        var sender = function(f){
-          var input     = document.getElementById('input');
-          input.onclick = function(){ input.value = "" };
-          f.onsubmit    = function(){
-            ws.send(input.value);
-            input.value = "send a message";
-            return false;
-          }
-        }(document.getElementById('form'));
-      })();
-    }
-  </script>
-   <form id="form">
-       <input type="text" id="input" value="send a message"></input>
-     </form>
-     <div id="msgs"></div>
-  <h3>This is list <a href="/v/<%= @current_url%>"><%= @current_url %></a>.</h3>
-  <% @items.values.each_with_index do |item, index| %>
+      var ws       = new WebSocket('ws://' + window.location.host + window.location.pathname);
+      ws.onopen    = function()  { show('websocket opened'); };
+      ws.onclose   = function()  { show('websocket closed'); }
+      ws.onmessage = function(m) { show('websocket message: ' +  m.data); };
+
+      var sender = function(f){
+        var input     = document.getElementById('input');
+        input.onclick = function(){ input.value = "" };
+        f.onsubmit    = function(){
+          ws.send(input.value);
+          input.value = "send a message";
+          return false;
+        }
+      }(document.getElementById('form'));
+    })();
+  }
+</script>
+ <form id="form">
+     <input type="text" id="input" value="send a message"></input>
+   </form>
+   <div id="msgs"></div>
+<h3>It's named <a href="/v/<%= @current_url%>"><%= @current_url %></a>.</h3>
+<% @items.values.each_with_index do |item, index| %>
   <div class="row">
-    <div class="span12">
+    <div class="span4"></div>
+    <div class="span4">
       <div class="toggle toggle-icon">
 	     <label class="toggle-radio fui-checkmark-16" for="item<%= index %>"></label>
 	     <input type="radio" name="item<%= index %>" id="item<%= index %>" value="off" <%= item['checked'] ? 'checked="checked"' : '' %> >
@@ -37,4 +42,4 @@
       </div> <%= item[:name] %>
     </div>
   </div>
-  <% end %>
+<% end %>
