@@ -62,8 +62,13 @@ get '/em.css' do
 end
 
 get '/' do
-  @title = "Create a list"
+  @title = "Welcome to Gras-Shopper !"
   erb :index
+end
+
+get '/create' do
+  @title = "Create a list"
+  erb :create
 end
 
 post '/create' do

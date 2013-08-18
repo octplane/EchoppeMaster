@@ -1,28 +1,26 @@
-  <h1>Echoppe Master</h1>
 
-  <h3>Create your shopping list</h3>
-<form id="create" method="post" action="/create">
-	<input type="hidden" name="src" value="<%= @current_url %>">
-	<div class="row">
-		<div class="span3">Send email with admin info to</div>
-		<div class="span9"><input type="text" id="email" name="email" value="<%= @email || "" %>"></div>
-	</div>
-    <div class="toggle toggle-icon">
-      <label class="toggle-radio fui-checkmark-16" for="privOption"></label>
-      <input type="radio" name="privOption" id="privOption" value="on" checked="checked">
-      <label class="toggle-radio fui-cross-16" for="privOption"></label>
-    </div> Make private<br>
-    <div class="row">
-    <div class="span12">
- <textarea id="slist" name="slist" class="shopping-list" width="100%" lines="10">
- Rillettes
- Lait (x3)
- </textarea><br/>
+<div class="row"><span class="span8">
+<div class="hero-unit">
+  <h1>Share &amp; Shop</h1>
+  <h2>Let your shopping list jump from your computer to your iPhone !</h2>
+  <ul>
+    <li>Write your shopping lists quickly and send them to your iPhone.</li>
+    <li>Share them with your friends</li>
+    <li>Update them in realtime.</li>
+    <li>Never forget the butter again</li>
+  </ul>
+</div></span>
+
+<span class="span4">
+  <div class="hero-unit palette palette-amethyst"><h1>Step 1</h1>
+    Create a list <a href="/create">here</a>
   </div>
-</div>
-<div class="row">
-  <div class="span3">
-    <input type="submit" class="btn btn-large btn-block btn-primary" value="Create Shopping list">
+  <div class="hero-unit palette palette-carrot"><h1>Step 2</h1>
+    Grab its identifier, or scan the QR-Code using the App (soon in the AppStore)
   </div>
+  <div class="hero-unit palette palette-alizarin"><h1>Step 3</h1>
+    Go shopping and check each item when in basket
+  </div>
+</span>
+
 </div>
-</form>
