@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'unicorn'
+gem 'thin'
 gem 'sinatra'
 gem 'shotgun'
 gem 'sass'
@@ -9,6 +9,6 @@ gem 'mongo'
 gem 'bson_ext'
 gem 'json'
 
-gem 'sinatra-websocket'
+gem 'faye'
 
 gem 'rufus-mnemo', :require => 'rufus/mnemo'

@@ -2,7 +2,7 @@ path = File.expand_path("../", __FILE__)
 
 require 'rubygems'
 require 'sinatra'
-require 'sinatra-websocket'
+require 'faye'
 require 'sass'
 require 'compass'
 
@@ -16,6 +16,5 @@ set :public_folder, File.join(path, "public")
 
 require "#{path}/app"
 
-
-
+use Faye::RackAdapter, :mount => '/comet', :timeout => 30
 run Sinatra::Application
