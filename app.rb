@@ -58,7 +58,7 @@ end
 
 get '/em.css' do
   #  headers 'Content-Type' => 'text/css; charset=utf-8'
-  scss 'sass/em'.to_sym
+  scss 'sass/em'.to_sym,  line_numbers: true # {:style => :compact, :debug_info => false}
 end
 
 get '/' do
