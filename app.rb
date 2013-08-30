@@ -108,27 +108,28 @@ get '/v/:id' do
     id = Rufus::Mnemo.from_s(params[:id])
     doc = fetch_doc(id)
     if doc != nil
-      if !request.websocket?
+      if !request.respond_to?(:websocket?) || !request.websocket?
         @current_url = params[:id]
         @title = "Shopping list #{@current_url}"
         @items = doc['items']
 
         erb :shop
       else
-   request.websocket do |ws|
-      ws.onopen do
-        ws.send('c')
-        settings.sockets << ws
-      end
-      ws.onmessage do |msg|
-        EM.next_tick { settings.sockets.each{|s| s.send(msg) } }
-      end
-      ws.onclose do
-        warn("wetbsocket closed")
-        settings.sockets.delete(ws)
-      end
-
-      end
+        if request.respond_to?(:websocket?)
+          request.websocket do |ws|
+            ws.onopen do
+              ws.send('c')
+              settings.sockets << ws
+            end
+            ws.onmessage do |msg|
+              EM.next_tick { settings.sockets.each{|s| s.send(msg) } }
+            end
+            ws.onclose do
+              warn("wetbsocket closed")
+              settings.sockets.delete(ws)
+            end
+          end
+        end
       end
     else
       redirect "/404"
