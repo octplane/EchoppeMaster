@@ -48,56 +48,41 @@ textarea.shopping-list {
   height: 10em;
 }
 
-
-@media (max-width: 979px) {
-	.logo:before {
-		position: absolute;
-		vertical-align: middle;
-		height: 100%;
-		content: "";
-	}
-	.logo {
-		background-size: 32px 32px;
-		padding-left: 32px;
-		height: 32px;
-	}
-	.logo a.brand {
-		font-size:25px;
-		vertical-align: middle;
-	}
-	.span4, .span5, .span6, .span7, .span8, .span10, .span11, .span12 {
-		clear: both;
-		max-width: 100%;
-	}
-	.span4, span8 { width: 80%; }
-	.container { max-width: 100%;}
-	.inst {
-		position:relative;
-		left:10%;
-		right: 10%;
-	}
-	.navbar { margin-bottom: 0px;}
-	.navbar-inverse .navbar-inner, .span3 {
-		margin: 10px;
-		margin-left: 10px;
-	}
-
-	textarea.shopping-list {
-		width: 80%;
-		margin-left: 10%;
-		margin-right: 10%;
-	}
-	.toggle.toggle-icon {
-		margin-left: 30%;
-	}
-	.page-header {
-		margin: 0px;
-		padding-bottom: 0px;
-		h1 {
-			margin: 0px;
-			margin-left: 10px;
-			font-size: 12px;
-			small { font-size: 10px;}
-		}
-	}
+@media screen and (max-width: 950px) {
+  .row {
+    margin-left: 0px;
+  }
+  .navbar {
+    margin-bottom: 3px;
+  }
+  .navbar-inner {
+    border-radius: 0px;
+  }
+  .container {
+    width: 100%;
+  }
+  .well {
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+  ul {
+    margin-bottom: 3px;
+  }
+  .mbl, .page-header {
+    margin-bottom: 0px;
+  }
+  .span4, .span5, .span6, .span7, .span8, .span9, .span10, .span11, .span12 {
+    width: 100%;
+    display: block;
+    margin-left: 0px;
+  }
+  .footer, .page-header, h1 {
+    margin-top: 0px;
+  }
+  .page-header {
+    margin-left: 10px;
+  }
+  h1 small {
+    display: block;
+  }
 }
